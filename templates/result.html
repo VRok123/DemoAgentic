@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h2 { text-align: center; }
+        .info { margin-top: 20px; }
+        .info label { font-weight: bold; }
+        .info div { margin-bottom: 10px; }
+        a { display: block; text-align: center; margin-top: 20px; color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .toggle-btn {
+            display: block;
+            margin: 0 auto 20px auto;
+            padding: 8px 16px;
+            background: #222;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .toggle-btn.light {
+            background: #fff;
+            color: #222;
+            border: 1px solid #222;
+        }
+        body.dark-mode {
+            background: #181818;
+            color: #f4f4f4;
+        }
+        body.dark-mode .container {
+            background: #232323;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        body.dark-mode a { color: #66aaff; }
+        body.dark-mode .toggle-btn {
+            background: #fff;
+            color: #222;
+            border: 1px solid #222;
+        }
+        body.dark-mode .toggle-btn.light {
+            background: #222;
+            color: #fff;
+            border: none;
+        }
+    </style>
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('theme-toggle');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                btn.textContent = 'Switch to Light Mode';
+                btn.classList.remove('light');
+            } else {
+                btn.textContent = 'Switch to Dark Mode';
+                btn.classList.add('light');
+            }
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+        window.onload = function() {
+            const theme = localStorage.getItem('theme');
+            const body = document.body;
+            const btn = document.getElementById('theme-toggle');
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                btn.textContent = 'Switch to Light Mode';
+                btn.classList.remove('light');
+            } else {
+                btn.textContent = 'Switch to Dark Mode';
+                btn.classList.add('light');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <button id="theme-toggle" class="toggle-btn light" onclick="toggleTheme()">Switch to Dark Mode</button>
+        <h2>Registration Details</h2>
+        <div class="info">
+            <div><label>Name:</label> {{ data.name }}</div>
+            <div><label>Branch:</label> {{ data.branch }}</div>
+            <div><label>State:</label> {{ data.state }}</div>
+            <div><label>Email Address:</label> {{ data.email }}</div>
+            <div><label>Phone Number:</label> {{ data.phone }}</div>
+        </div>
+        <a href="/">Back to Registration</a>
+        <a href="/download" style="margin-top:10px;">Download All Registrations (CSV)</a>
+    </div>
+</body>
+</html>
